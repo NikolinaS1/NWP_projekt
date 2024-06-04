@@ -23,12 +23,13 @@ export class HomeComponent {
   add(): void {
     const dialogRef = this.dialog.open(AddProjectDialogComponent, {
       width: '660px',
-      height: '450px',
+      height: '510px',
       data: {
         title: '',
         location: '',
         startDate: null,
         endDate: null,
+        volunteers: '',
         description: '',
         skills: '',
       },

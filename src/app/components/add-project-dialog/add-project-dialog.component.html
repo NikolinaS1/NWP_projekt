@@ -47,6 +47,17 @@
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
       </div>
+      <div class="volunteers">
+        <mat-form-field [style.width.px]="280" appearance="fill">
+          <mat-label>Volunteers</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Enter number of volunteers"
+            [(ngModel)]="data.volunteers"
+          />
+        </mat-form-field>
+      </div>
     </div>
     <div class="second">
       <div class="description">

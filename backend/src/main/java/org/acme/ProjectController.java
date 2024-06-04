@@ -24,7 +24,7 @@ public class ProjectController {
     @Produces(MediaType.APPLICATION_JSON)
     public ProjectResponse create(Project project) {
         Project q =  projectService.create(project);
-        return new ProjectResponse(q.getTitle(), q.getLocation(), q.getStartDate(), q.getEndDate(), q.getDescription(), q.getSkills());
+        return new ProjectResponse(q.getTitle(), q.getLocation(), q.getStartDate(), q.getEndDate(), q.getVolunteers(), q.getDescription(), q.getSkills());
     }
 
     @GET()

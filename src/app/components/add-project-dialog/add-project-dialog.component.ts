@@ -7,6 +7,7 @@ export interface DialogData {
   location: string;
   startDate: Date;
   endDate: Date;
+  volunteers: Number;
   description: string;
   skills: string;
 }

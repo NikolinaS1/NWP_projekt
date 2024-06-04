@@ -3,6 +3,7 @@ export interface Project {
   location: string;
   startDate: Date;
   endDate: Date;
+  volunteers: Number;
   description: string;
   skills: string;
 }

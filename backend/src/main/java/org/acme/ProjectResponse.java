@@ -8,14 +8,16 @@ public class ProjectResponse {
     private String location;
     private Date startDate;
 	private Date endDate;
+	private int volunteers;
     private String description;
     private String skills;
 
-    public ProjectResponse(String title, String location, Date startDate, Date endDate, String description, String skills) {
+    public ProjectResponse(String title, String location, Date startDate, Date endDate, int volunteers, String description, String skills) {
         this.title = title;
         this.location = location;
         this.startDate = startDate;
 		this.endDate = endDate;
+		this.volunteers = volunteers;
         this.description = description;
         this.skills = skills;
     }
@@ -50,6 +52,14 @@ public class ProjectResponse {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public int getVolunteers() {
+		return this.volunteers;
+	}
+
+	public void setVolunteers(int volunteers) {
+		this.volunteers = volunteers;
 	}
 
 	public String getDescription() {
