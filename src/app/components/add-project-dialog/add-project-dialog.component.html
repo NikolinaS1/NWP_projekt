@@ -1,0 +1,76 @@
+<div class="container">
+  <h1>Project informations</h1>
+  <div class="flex-container">
+    <div class="first">
+      <div class="title">
+        <mat-form-field [style.width.px]="280" appearance="fill">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Enter title"
+            [(ngModel)]="data.title"
+          />
+        </mat-form-field>
+      </div>
+      <div class="location">
+        <mat-form-field [style.width.px]="280" appearance="fill">
+          <mat-label>Location</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Enter location"
+            [(ngModel)]="data.location"
+          />
+        </mat-form-field>
+      </div>
+      <div class="duration">
+        <mat-form-field [style.width.px]="280">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Start date"
+              [(ngModel)]="data.startDate"
+            />
+            <input
+              matEndDate
+              placeholder="End date"
+              [(ngModel)]="data.endDate"
+            />
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="second">
+      <div class="description">
+        <mat-form-field [style.width.px]="280" appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="3" [(ngModel)]="data.description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="skills">
+        <mat-form-field [style.width.px]="280" appearance="fill">
+          <mat-label>Skills needed</mat-label>
+          <textarea
+            matInput
+            rows="3"
+            (keydown)="handleInput($event, $event)"
+            [(ngModel)]="data.skills"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="add-button">
+    <button type="button" class="btn btn-dark btn-round mb-4" (click)="save()">
+      Add
+    </button>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+h1 {
+  text-align: center;
+  margin: 20px;
+}
+
+.flex-container {
+  display: flex;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.first,
+.second {
+  flex: 1;
+  padding: 20px;
+}
+
+.add-button {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
