@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarModule } from '../../components/navbar/navbar.module';
 import { HeaderModule } from '../../components/header/header.module';
+import { ProjectCardModule } from '../../components/project-card/project-card.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NavbarModule,
     HeaderModule,
+    ProjectCardModule,
   ],
   exports: [HomeComponent],
 })

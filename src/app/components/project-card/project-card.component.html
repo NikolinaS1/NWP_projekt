@@ -1,0 +1,17 @@
+<div *ngIf="projects.length > 0; else noProjects" class="projects">
+  <div *ngFor="let project of projects" class="project">
+    <img src="../../../assets/img/project.jpg" />
+    <h3>{{ project.title }}</h3>
+    <p>Location: {{ project.location }}</p>
+    <p>
+      Duration: {{ project.startDate | date : "yyyy-MM-dd" }} -
+      {{ project.endDate | date : "yyyy-MM-dd" }}
+    </p>
+    <p>
+      Volunteers needed: <span>{{ project.volunteers }}</span>
+    </p>
+  </div>
+</div>
+<ng-template #noProjects>
+  <p>No projects found.</p>
+</ng-template>

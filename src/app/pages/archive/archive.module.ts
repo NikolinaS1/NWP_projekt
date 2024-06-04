@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArchiveComponent } from './archive.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ProjectCardModule } from '../../components/project-card/project-card.module';
+import { NavbarModule } from '../../components/navbar/navbar.module';
 
 const routes: Routes = [
   {
@@ -12,6 +14,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ArchiveComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ProjectCardModule,
+    NavbarModule,
+  ],
+  exports: [ArchiveComponent],
 })
 export class ArchiveModule {}
