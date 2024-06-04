@@ -4,7 +4,7 @@
   <div class="title mt-4 mb-3">
     <h1>Active projects</h1>
   </div>
-  <div id="button">
+  <div id="button" *ngIf="isLoggedIn">
     <button type="button" (click)="add()" class="btn btn-dark btn-round mb-4">
       Add project
     </button>
