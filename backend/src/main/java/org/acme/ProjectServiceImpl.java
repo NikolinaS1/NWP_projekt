@@ -10,6 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Date;
+import java.util.Optional;
 
 @ApplicationScoped
 @Transactional
@@ -26,5 +27,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<Project> findAll() {
         return projectRepository.findAll().stream().map(ProjectEntity::toDomain).toList();
+    }
+
+    @Override
+    public Project findById(Long id) {
+        Optional<ProjectEntity> entity = projectRepository.findByIdOptional(id);
+        return entity.map(ProjectEntity::toDomain).orElse(null);
     }
 }

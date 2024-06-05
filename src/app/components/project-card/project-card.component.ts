@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Project } from '../../project.interface';
 import { ProjectService } from '../../project.service';
+import { ProjectDetailsDialogComponent } from '../project-details-dialog/project-details-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-project-card',
@@ -11,7 +13,10 @@ export class ProjectCardComponent implements OnInit {
   @Input() isArchivePage: boolean = false;
   projects: Project[] = [];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.fetchProjects();
@@ -33,6 +38,14 @@ export class ProjectCardComponent implements OnInit {
             return project.endDate >= currentDate;
           }
         });
+    });
+  }
+
+  showDetails(project: Project): void {
+    const dialogRef = this.dialog.open(ProjectDetailsDialogComponent, {
+      data: { project: project },
+      width: '660px',
+      height: '510px',
     });
   }
 }

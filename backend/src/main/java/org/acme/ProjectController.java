@@ -11,6 +11,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.PathParam;
 import java.util.List;
 import java.util.Date;
 
@@ -30,5 +32,17 @@ public class ProjectController {
     @GET()
     public List<Project> list() {
         return projectService.findAll();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findById(@PathParam("id") Long id) {
+        Project project = projectService.findById(id);
+        if (project != null) {
+            return Response.ok(project).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }
