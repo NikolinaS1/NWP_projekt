@@ -34,4 +34,9 @@ public class ProjectServiceImpl implements ProjectService {
         Optional<ProjectEntity> entity = projectRepository.findByIdOptional(id);
         return entity.map(ProjectEntity::toDomain).orElse(null);
     }
+
+    @Override
+    public boolean delete(Long id) {
+        return projectRepository.deleteById(id); 
+    }
 }

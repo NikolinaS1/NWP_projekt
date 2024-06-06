@@ -10,4 +10,5 @@ public interface ProjectService {
     public Project create(Project project);
     public List<Project> findAll();
     public Project findById(Long id);
+    boolean delete(Long id);
 }
