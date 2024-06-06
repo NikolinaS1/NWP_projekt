@@ -1,0 +1,31 @@
+.project-details img {
+  width: 660px;
+  height: auto;
+  object-fit: cover;
+  margin: 0;
+}
+
+.project-details h3 {
+  text-transform: uppercase;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.content {
+  padding: 30px;
+}
+
+.content p {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.content p span {
+  color: #de3163;
+  font-weight: 600;
+}
+
+.button-container {
+  text-align: right;
+  margin-right: 30px;
+}

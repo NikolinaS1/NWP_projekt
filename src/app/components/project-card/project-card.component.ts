@@ -45,7 +45,7 @@ export class ProjectCardComponent implements OnInit {
     const dialogRef = this.dialog.open(ProjectDetailsDialogComponent, {
       data: { project: project },
       width: '660px',
-      height: '510px',
+      height: 'auto',
     });
   }
 }

@@ -9,6 +9,7 @@ import { AddProjectDialogModule } from './components/add-project-dialog/add-proj
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { environment } from '../environments/environment.development';
 import { HttpClientModule } from '@angular/common/http';
+import { ProjectDetailsDialogModule } from './components/project-details-dialog/project-details-dialog.module';
 
 export const initializeKeycloak = (keycloak: KeycloakService) => async () =>
   keycloak.init({
@@ -36,6 +37,7 @@ export const initializeKeycloak = (keycloak: KeycloakService) => async () =>
     AddProjectDialogModule,
     KeycloakAngularModule,
     HttpClientModule,
+    ProjectDetailsDialogModule,
   ],
   providers: [
     {

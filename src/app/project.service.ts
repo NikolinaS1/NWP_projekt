@@ -22,4 +22,8 @@ export class ProjectService {
       .post<Project>(this.projectUrl, project)
       .subscribe((result) => console.log(result));
   }
+
+  public findById(id: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.projectUrl}/${id}`);
+  }
 }

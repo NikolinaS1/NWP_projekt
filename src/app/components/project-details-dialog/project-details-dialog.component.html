@@ -1,1 +1,19 @@
-<p>project-details-dialog works!</p>
+<div class="project-details">
+  <img src="../../../assets/img/details.jpeg" />
+  <div class="content">
+    <h3>{{ data.project.title }}</h3>
+    <p>Location: {{ data.project.location }}</p>
+    <p>
+      Duration: {{ data.project.startDate | date : "yyyy-MM-dd" }} -
+      {{ data.project.endDate | date : "yyyy-MM-dd" }}
+    </p>
+    <p>
+      Volunteers needed: <span>{{ data.project.volunteers }}</span>
+    </p>
+    <p>Description: {{ data.project.description }}</p>
+    <p>Skills required: {{ data.project.skills }}</p>
+  </div>
+  <div id="button" *ngIf="isLoggedIn" class="button-container">
+    <button type="button" class="btn btn-success btn-round mb-4">Assign</button>
+  </div>
+</div>
