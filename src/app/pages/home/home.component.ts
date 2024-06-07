@@ -3,6 +3,7 @@ import { AddProjectDialogComponent } from '../../components/add-project-dialog/a
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizationService } from '../../authorization.service';
 import { ProjectService } from '../../project.service';
+import { Project } from '../../project.interface';
 
 @Component({
   selector: 'app-home',

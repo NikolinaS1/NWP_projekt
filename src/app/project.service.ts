@@ -26,4 +26,8 @@ export class ProjectService {
   public findById(id: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.projectUrl}/${id}`);
   }
+
+  public delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.projectUrl}/${id}`);
+  }
 }

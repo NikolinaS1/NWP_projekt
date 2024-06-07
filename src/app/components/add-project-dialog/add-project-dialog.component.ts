@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../project.service';
 
 export interface DialogData {
+  id: number;
   title: string;
   location: string;
   startDate: Date;

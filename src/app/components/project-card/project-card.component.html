@@ -2,7 +2,7 @@
   <div
     *ngFor="let project of projects"
     class="project"
-    (click)="showDetails(project)"
+    (click)="handleProjectClick(project)"
   >
     <img src="../../../assets/img/project.jpg" />
     <h3>{{ project.title }}</h3>
@@ -14,5 +14,25 @@
     <p>
       Volunteers needed: <span>{{ project.volunteers }}</span>
     </p>
+    <div class="actions">
+      <div class="edit" *ngIf="isLoggedIn">
+        <button
+          type="button"
+          class="btn btn-success btn-round mb-4"
+          (click)="stopPropagation($event)"
+        >
+          Edit
+        </button>
+      </div>
+      <div class="delete" *ngIf="isLoggedIn">
+        <button
+          type="button"
+          class="btn btn-danger btn-round mb-4"
+          (click)="stopPropagation($event); deleteProject(project.id)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
   </div>
 </div>

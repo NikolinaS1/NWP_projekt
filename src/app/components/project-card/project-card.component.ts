@@ -3,19 +3,25 @@ import { Project } from '../../project.interface';
 import { ProjectService } from '../../project.service';
 import { ProjectDetailsDialogComponent } from '../project-details-dialog/project-details-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthorizationService } from '../../authorization.service';
 
 @Component({
   selector: 'app-project-card',
   templateUrl: './project-card.component.html',
-  styleUrl: './project-card.component.css',
+  styleUrls: ['./project-card.component.css'],
 })
 export class ProjectCardComponent implements OnInit {
   @Input() isArchivePage: boolean = false;
   projects: Project[] = [];
 
+  get isLoggedIn(): boolean {
+    return this.authorizationService.isLoggedIn();
+  }
+
   constructor(
     private projectService: ProjectService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authorizationService: AuthorizationService
   ) {}
 
   ngOnInit(): void {
@@ -47,5 +53,22 @@ export class ProjectCardComponent implements OnInit {
       width: '660px',
       height: 'auto',
     });
+  }
+
+  deleteProject(id: number) {
+    this.projectService.delete(id).subscribe(() => {
+      this.projects = this.projects.filter((project) => project.id !== id);
+    });
+  }
+
+  handleProjectClick(project: Project): void {
+    if (!this.isLoggedIn) {
+      return;
+    }
+    this.showDetails(project);
+  }
+
+  stopPropagation(event: Event): void {
+    event.stopPropagation();
   }
 }
