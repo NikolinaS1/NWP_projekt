@@ -9,8 +9,8 @@ import jakarta.inject.Inject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 @Transactional
@@ -20,13 +20,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project create(Project project) {
-        projectRepository.persist(project.toEntity());
-        return project;
+        ProjectEntity entity = project.toEntity();
+        projectRepository.persist(entity);
+        return entity.toDomain();
     }
 
     @Override
     public List<Project> findAll() {
-        return projectRepository.findAll().stream().map(ProjectEntity::toDomain).toList();
+        return projectRepository.findAll().stream().map(ProjectEntity::toDomain).collect(Collectors.toList());
     }
 
     @Override
@@ -37,6 +38,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public boolean delete(Long id) {
-        return projectRepository.deleteById(id); 
+        return projectRepository.deleteById(id);
     }
 }

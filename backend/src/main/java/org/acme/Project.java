@@ -8,10 +8,23 @@ public class Project {
     private String title;
     private String location;
     private Date startDate;
-	private Date endDate;
-	private int volunteers;
+    private Date endDate;
+    private int volunteers;
     private String description;
     private String skills;
+
+    public Project() {}
+
+    public Project(Long id, String title, String location, Date startDate, Date endDate, int volunteers, String description, String skills) {
+        this.id = id;
+        this.title = title;
+        this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.volunteers = volunteers;
+        this.description = description;
+        this.skills = skills;
+    }
 
 	public Long getId() {
 		return this.id;
@@ -20,17 +33,6 @@ public class Project {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-    public Project(Long id, String title, String location, Date startDate, Date endDate, int volunteers, String description, String skills) {
-        this.id = id;
-        this.title = title;
-        this.location = location;
-        this.startDate = startDate;
-		this.endDate = endDate;
-		this.volunteers = volunteers;
-        this.description = description;
-        this.skills = skills;
-    }
 
 	public String getTitle() {
 		return this.title;
@@ -89,6 +91,6 @@ public class Project {
 	}
 
     public ProjectEntity toEntity() {
-       return new ProjectEntity(this.title, this.location, this.startDate, this.endDate, this.volunteers, this.description, this.skills);
+        return new ProjectEntity(this.title, this.location, this.startDate, this.endDate, this.volunteers, this.description, this.skills);
     }
 }

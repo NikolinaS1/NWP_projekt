@@ -1,12 +1,16 @@
 package org.acme;
 
+import jakarta.persistence.*;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Id;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "projects")
@@ -20,7 +24,7 @@ public class ProjectEntity extends PanacheEntityBase {
     private String location;
     private Date startDate;
     private Date endDate;
-	private int volunteers;
+    private int volunteers;
     private String description;
     private String skills;
 
@@ -31,7 +35,7 @@ public class ProjectEntity extends PanacheEntityBase {
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
-		this.volunteers = volunteers;
+        this.volunteers = volunteers;
         this.description = description;
         this.skills = skills;
     }
