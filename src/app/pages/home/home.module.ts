@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NavbarModule } from '../../components/navbar/navbar.module';
 import { HeaderModule } from '../../components/header/header.module';
 import { ProjectCardModule } from '../../components/project-card/project-card.module';
+import { FooterModule } from '../../components/footer/footer.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     NavbarModule,
     HeaderModule,
     ProjectCardModule,
+    FooterModule,
   ],
   exports: [HomeComponent],
 })

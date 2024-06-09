@@ -13,7 +13,7 @@
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   transition: transform 0.3s ease;
-  width: calc(25% - 30px);
+  width: calc(33.33% - 150px);
   box-sizing: border-box;
   cursor: pointer;
   overflow: hidden;
