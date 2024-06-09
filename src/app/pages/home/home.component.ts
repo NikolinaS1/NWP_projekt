@@ -26,8 +26,8 @@ export class HomeComponent {
 
   add(): void {
     const dialogRef = this.dialog.open(AddProjectDialogComponent, {
-      width: '660px',
-      height: '510px',
+      width: '670px',
+      height: 'auto',
       data: {
         title: '',
         location: '',
@@ -41,9 +41,7 @@ export class HomeComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.projectService.save(result).subscribe(() => {
-          this.projectCardComponent.fetchProjects();
-        });
+        this.projectCardComponent.fetchProjects();
       }
     });
   }

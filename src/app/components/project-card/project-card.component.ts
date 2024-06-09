@@ -5,6 +5,7 @@ import { ProjectDetailsDialogComponent } from '../project-details-dialog/project
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizationService } from '../../authorization.service';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-project-card',
@@ -56,9 +57,20 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
-  deleteProject(id: number) {
-    this.projectService.delete(id).subscribe(() => {
-      this.projects = this.projects.filter((project) => project.id !== id);
+  deleteProject(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: {
+        message: 'Are you sure you want to delete this project?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.projectService.delete(id).subscribe(() => {
+          this.projects = this.projects.filter((project) => project.id !== id);
+        });
+      }
     });
   }
 
@@ -75,8 +87,8 @@ export class ProjectCardComponent implements OnInit {
 
   update(project: Project): void {
     const dialogRef = this.dialog.open(AddProjectDialogComponent, {
-      width: '660px',
-      height: '510px',
+      width: '670px',
+      height: 'auto',
       data: project,
     });
 

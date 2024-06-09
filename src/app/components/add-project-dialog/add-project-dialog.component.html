@@ -1,82 +1,99 @@
 <div class="container">
   <h1>Project informations</h1>
-  <div class="flex-container">
-    <div class="first">
-      <div class="title">
-        <mat-form-field [style.width.px]="280" appearance="fill">
-          <mat-label>Title</mat-label>
-          <input
-            matInput
-            type="text"
-            placeholder="Enter title"
-            [(ngModel)]="data.title"
-          />
-        </mat-form-field>
-      </div>
-      <div class="location">
-        <mat-form-field [style.width.px]="280" appearance="fill">
-          <mat-label>Location</mat-label>
-          <input
-            matInput
-            type="text"
-            placeholder="Enter location"
-            [(ngModel)]="data.location"
-          />
-        </mat-form-field>
-      </div>
-      <div class="duration">
-        <mat-form-field [style.width.px]="280">
-          <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
+  <form class="form-container" (ngSubmit)="save()">
+    <div class="flex-container">
+      <div class="first">
+        <div class="title">
+          <mat-form-field [style.width.px]="280" appearance="fill">
+            <mat-label>Title</mat-label>
             <input
-              matStartDate
-              placeholder="Start date"
-              [(ngModel)]="data.startDate"
+              matInput
+              type="text"
+              placeholder="Enter title"
+              [(ngModel)]="data.title"
+              name="title"
             />
+          </mat-form-field>
+        </div>
+        <div class="location">
+          <mat-form-field [style.width.px]="280" appearance="fill">
+            <mat-label>Location</mat-label>
             <input
-              matEndDate
-              placeholder="End date"
-              [(ngModel)]="data.endDate"
+              matInput
+              type="text"
+              placeholder="Enter location"
+              [(ngModel)]="data.location"
+              name="location"
             />
-          </mat-date-range-input>
-          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
+          </mat-form-field>
+        </div>
+        <div class="duration">
+          <mat-form-field [style.width.px]="280">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input
+                matStartDate
+                placeholder="Start date"
+                [(ngModel)]="data.startDate"
+                name="startDate"
+              />
+              <input
+                matEndDate
+                placeholder="End date"
+                [(ngModel)]="data.endDate"
+                name="endDate"
+              />
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+        <div class="volunteers">
+          <mat-form-field [style.width.px]="280" appearance="fill">
+            <mat-label>Volunteers</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder="Enter number of volunteers"
+              [(ngModel)]="data.volunteers"
+              name="volunteers"
+            />
+          </mat-form-field>
+        </div>
       </div>
-      <div class="volunteers">
-        <mat-form-field [style.width.px]="280" appearance="fill">
-          <mat-label>Volunteers</mat-label>
-          <input
-            matInput
-            type="number"
-            placeholder="Enter number of volunteers"
-            [(ngModel)]="data.volunteers"
-          />
-        </mat-form-field>
+      <div class="second">
+        <div class="description">
+          <mat-form-field [style.width.px]="280" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              rows="3"
+              [(ngModel)]="data.description"
+              name="description"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        <div class="skills">
+          <mat-form-field [style.width.px]="280" appearance="fill">
+            <mat-label>Skills needed</mat-label>
+            <textarea
+              matInput
+              rows="3"
+              [(ngModel)]="data.skills"
+              name="skills"
+            ></textarea>
+          </mat-form-field>
+        </div>
       </div>
     </div>
-    <div class="second">
-      <div class="description">
-        <mat-form-field [style.width.px]="280" appearance="fill">
-          <mat-label>Description</mat-label>
-          <textarea matInput rows="3" [(ngModel)]="data.description"></textarea>
-        </mat-form-field>
-      </div>
-      <div class="skills">
-        <mat-form-field [style.width.px]="280" appearance="fill">
-          <mat-label>Skills needed</mat-label>
-          <textarea matInput rows="3" [(ngModel)]="data.skills"></textarea>
-        </mat-form-field>
-      </div>
+    <div class="add-button">
+      <button type="submit" class="btn btn-dark btn-round mb-4">
+        {{ updateMode ? "Edit" : "Add" }}
+      </button>
     </div>
-  </div>
-  <div class="add-button">
-    <button type="button" class="btn btn-dark btn-round mb-4" (click)="save()">
-      {{ updateMode ? "Edit" : "Add" }}
-    </button>
-  </div>
+  </form>
 </div>
