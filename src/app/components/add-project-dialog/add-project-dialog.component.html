@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Project informations</h1>
+  <h1>{{ isEditing ? "Edit Project" : "Add Project" }}</h1>
   <form class="form-container" (ngSubmit)="save()">
     <div class="flex-container">
       <div class="first">
@@ -10,7 +10,7 @@
               matInput
               type="text"
               placeholder="Enter title"
-              [(ngModel)]="data.title"
+              [(ngModel)]="formData.title"
               name="title"
             />
           </mat-form-field>
@@ -22,7 +22,7 @@
               matInput
               type="text"
               placeholder="Enter location"
-              [(ngModel)]="data.location"
+              [(ngModel)]="formData.location"
               name="location"
             />
           </mat-form-field>
@@ -34,13 +34,13 @@
               <input
                 matStartDate
                 placeholder="Start date"
-                [(ngModel)]="data.startDate"
+                [(ngModel)]="formData.startDate"
                 name="startDate"
               />
               <input
                 matEndDate
                 placeholder="End date"
-                [(ngModel)]="data.endDate"
+                [(ngModel)]="formData.endDate"
                 name="endDate"
               />
             </mat-date-range-input>
@@ -59,7 +59,7 @@
               matInput
               type="number"
               placeholder="Enter number of volunteers"
-              [(ngModel)]="data.volunteers"
+              [(ngModel)]="formData.volunteers"
               name="volunteers"
             />
           </mat-form-field>
@@ -72,7 +72,7 @@
             <textarea
               matInput
               rows="3"
-              [(ngModel)]="data.description"
+              [(ngModel)]="formData.description"
               name="description"
             ></textarea>
           </mat-form-field>
@@ -83,7 +83,7 @@
             <textarea
               matInput
               rows="3"
-              [(ngModel)]="data.skills"
+              [(ngModel)]="formData.skills"
               name="skills"
             ></textarea>
           </mat-form-field>
@@ -92,7 +92,7 @@
     </div>
     <div class="add-button">
       <button type="submit" class="btn btn-dark btn-round mb-4">
-        {{ updateMode ? "Edit" : "Add" }}
+        {{ isEditing ? "Edit" : "Add" }}
       </button>
     </div>
   </form>
