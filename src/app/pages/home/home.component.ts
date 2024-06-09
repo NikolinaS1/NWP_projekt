@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AddProjectDialogComponent } from '../../components/add-project-dialog/add-project-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizationService } from '../../authorization.service';
 import { ProjectService } from '../../project.service';
 import { Project } from '../../project.interface';
+import { ProjectCardComponent } from '../../components/project-card/project-card.component';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ import { Project } from '../../project.interface';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+  @ViewChild(ProjectCardComponent) projectCardComponent!: ProjectCardComponent;
+
   get isLoggedIn(): boolean {
     return this.authorizationService.isLoggedIn();
   }
@@ -38,7 +41,9 @@ export class HomeComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.projectService.save(result);
+        this.projectService.save(result).subscribe(() => {
+          this.projectCardComponent.fetchProjects();
+        });
       }
     });
   }

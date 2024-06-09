@@ -17,14 +17,16 @@ export class ProjectService {
     return this.http.get<Project[]>(this.projectUrl);
   }
 
-  public save(project: Project) {
-    this.http
-      .post<Project>(this.projectUrl, project)
-      .subscribe((result) => console.log(result));
+  save(project: Project): Observable<Project> {
+    return this.http.post<Project>(`${this.projectUrl}`, project);
   }
 
   public findById(id: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.projectUrl}/${id}`);
+  }
+
+  update(id: number, project: Project): Observable<Project> {
+    return this.http.put<Project>(`${this.projectUrl}/${id}`, project);
   }
 
   public delete(id: number): Observable<void> {

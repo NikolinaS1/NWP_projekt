@@ -4,6 +4,7 @@ import org.acme.Project;
 import org.acme.ProjectService;
 import org.acme.ProjectEntity;
 import org.acme.ProjectRepository;
+import org.acme.ProjectRequest;
 
 import jakarta.inject.Inject;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -19,11 +20,13 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectRepository projectRepository;
 
     @Override
-    public Project create(Project project) {
-        ProjectEntity entity = project.toEntity();
-        projectRepository.persist(entity);
-        return entity.toDomain();
-    }
+public Project create(Project project) {
+    ProjectEntity entity = new ProjectEntity(project.getTitle(), project.getLocation(), project.getStartDate(), project.getEndDate(), project.getVolunteers(), project.getDescription(), project.getSkills());
+    projectRepository.persist(entity);
+    projectRepository.flush(); 
+    return entity.toDomain();
+}
+
 
     @Override
     public List<Project> findAll() {
@@ -40,4 +43,21 @@ public class ProjectServiceImpl implements ProjectService {
     public boolean delete(Long id) {
         return projectRepository.deleteById(id);
     }
+
+    @Override
+    public void update(Project project) {
+        ProjectEntity entity = projectRepository.findById(project.getId());
+        if (entity != null) {
+            entity.setTitle(project.getTitle());
+            entity.setLocation(project.getLocation());
+            entity.setStartDate(project.getStartDate());
+            entity.setEndDate(project.getEndDate());
+            entity.setVolunteers(project.getVolunteers());
+            entity.setDescription(project.getDescription());
+            entity.setSkills(project.getSkills());
+            projectRepository.persist(entity);
+            projectRepository.flush(); 
+        }
+}
+
 }

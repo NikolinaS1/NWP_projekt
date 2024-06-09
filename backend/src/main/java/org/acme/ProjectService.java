@@ -7,4 +7,5 @@ public interface ProjectService {
     List<Project> findAll();
     Project findById(Long id);
     boolean delete(Long id);
+    void update(Project project);
 }

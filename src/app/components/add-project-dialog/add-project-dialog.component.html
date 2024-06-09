@@ -69,19 +69,14 @@
       <div class="skills">
         <mat-form-field [style.width.px]="280" appearance="fill">
           <mat-label>Skills needed</mat-label>
-          <textarea
-            matInput
-            rows="3"
-            (keydown)="handleInput($event, $event)"
-            [(ngModel)]="data.skills"
-          ></textarea>
+          <textarea matInput rows="3" [(ngModel)]="data.skills"></textarea>
         </mat-form-field>
       </div>
     </div>
   </div>
   <div class="add-button">
     <button type="button" class="btn btn-dark btn-round mb-4" (click)="save()">
-      Add
+      {{ updateMode ? "Edit" : "Add" }}
     </button>
   </div>
 </div>

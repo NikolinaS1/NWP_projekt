@@ -4,6 +4,7 @@ import { ProjectService } from '../../project.service';
 import { ProjectDetailsDialogComponent } from '../project-details-dialog/project-details-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizationService } from '../../authorization.service';
+import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 
 @Component({
   selector: 'app-project-card',
@@ -70,5 +71,21 @@ export class ProjectCardComponent implements OnInit {
 
   stopPropagation(event: Event): void {
     event.stopPropagation();
+  }
+
+  update(project: Project): void {
+    const dialogRef = this.dialog.open(AddProjectDialogComponent, {
+      width: '660px',
+      height: '510px',
+      data: project,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.projectService.update(project.id, result).subscribe(() => {
+          this.fetchProjects();
+        });
+      }
+    });
   }
 }

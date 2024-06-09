@@ -3,11 +3,13 @@ package org.acme;
 import org.acme.ProjectResponse;
 import org.acme.Project;
 import org.acme.ProjectService;
+import org.acme.ProjectRequest;
 import io.quarkus.security.Authenticated;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -57,5 +59,28 @@ public class ProjectController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build(); 
         }
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Authenticated
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") Long id, ProjectRequest projectRequest) {
+        Project project = projectService.findById(id);
+        if (project == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        project.setTitle(projectRequest.getTitle());
+        project.setLocation(projectRequest.getLocation());
+        project.setStartDate(projectRequest.getStartDate());
+        project.setEndDate(projectRequest.getEndDate());
+        project.setVolunteers(projectRequest.getVolunteers());
+        project.setDescription(projectRequest.getDescription());
+        project.setSkills(projectRequest.getSkills());
+
+        projectService.update(project);
+
+        return Response.ok(project).build();
     }
 }
