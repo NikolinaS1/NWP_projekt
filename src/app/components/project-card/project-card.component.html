@@ -1,6 +1,6 @@
 <div class="projects">
   <div
-    *ngFor="let project of projects"
+    *ngFor="let project of pageSlice"
     class="project"
     (click)="handleProjectClick(project)"
   >
@@ -36,3 +36,9 @@
     </div>
   </div>
 </div>
+<mat-paginator
+  [length]="projects.length"
+  [pageSize]="6"
+  [pageSizeOptions]="[6, 12, 24]"
+  (page)="onPageChange($event)"
+></mat-paginator>

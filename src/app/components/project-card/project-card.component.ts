@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthorizationService } from '../../authorization.service';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-project-card',
@@ -15,6 +16,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class ProjectCardComponent implements OnInit {
   @Input() isArchivePage: boolean = false;
   projects: Project[] = [];
+  pageSlice: Project[] = [];
 
   get isLoggedIn(): boolean {
     return this.authorizationService.isLoggedIn();
@@ -46,6 +48,7 @@ export class ProjectCardComponent implements OnInit {
             return project.endDate >= currentDate;
           }
         });
+      this.pageSlice = this.projects.slice(0, 6);
     });
   }
 
@@ -99,5 +102,14 @@ export class ProjectCardComponent implements OnInit {
         });
       }
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.projects.length) {
+      endIndex = this.projects.length;
+    }
+    this.pageSlice = this.projects.slice(startIndex, endIndex);
   }
 }

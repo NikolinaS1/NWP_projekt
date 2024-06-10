@@ -6,6 +6,7 @@ import { NavbarModule } from '../../components/navbar/navbar.module';
 import { HeaderModule } from '../../components/header/header.module';
 import { ProjectCardModule } from '../../components/project-card/project-card.module';
 import { FooterModule } from '../../components/footer/footer.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     HeaderModule,
     ProjectCardModule,
     FooterModule,
+    MatPaginatorModule,
   ],
   exports: [HomeComponent],
 })
