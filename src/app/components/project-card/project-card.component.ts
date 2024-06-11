@@ -72,6 +72,7 @@ export class ProjectCardComponent implements OnInit {
       if (result) {
         this.projectService.delete(id).subscribe(() => {
           this.projects = this.projects.filter((project) => project.id !== id);
+          this.fetchProjects();
         });
       }
     });

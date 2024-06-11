@@ -7,6 +7,7 @@ import { HeaderModule } from '../../components/header/header.module';
 import { ProjectCardModule } from '../../components/project-card/project-card.module';
 import { FooterModule } from '../../components/footer/footer.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
     ProjectCardModule,
     FooterModule,
     MatPaginatorModule,
+    MatSnackBarModule,
   ],
   exports: [HomeComponent],
 })

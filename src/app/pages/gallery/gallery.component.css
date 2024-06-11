@@ -1,0 +1,27 @@
+.container {
+  min-height: calc(100vh - 40px);
+  padding-top: 80px;
+  margin-bottom: 20px;
+}
+
+#button {
+  margin-top: 80px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.gallery img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}

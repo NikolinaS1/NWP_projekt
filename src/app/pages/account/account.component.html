@@ -1,1 +1,17 @@
-<p>account works!</p>
+<app-navbar></app-navbar>
+<div class="content">
+  <div class="container">
+    <div class="user">
+      <img src="../../../assets/img/user.png" />
+    </div>
+    <div class="info">
+      <h4 class="name">{{ firstName }} {{ lastName }}</h4>
+      <p class="email">{{ userName }}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="button">My active projects</button>
+    <button class="button">My archive</button>
+  </div>
+</div>
+<footer><app-footer></app-footer></footer>

@@ -16,6 +16,16 @@ export class AuthorizationService {
     return this.keycloakService.getUsername();
   }
 
+  get firstName(): string {
+    const idToken = this.keycloakService.getKeycloakInstance()?.idTokenParsed;
+    return idToken?.['given_name'] ?? '';
+  }
+
+  get lastName(): string {
+    const idToken = this.keycloakService.getKeycloakInstance()?.idTokenParsed;
+    return idToken?.['family_name'] ?? '';
+  }
+
   isLoggedIn(): boolean {
     return this.keycloakService.isLoggedIn();
   }

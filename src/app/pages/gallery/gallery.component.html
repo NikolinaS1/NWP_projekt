@@ -1,1 +1,29 @@
-<p>gallery works!</p>
+<app-navbar></app-navbar>
+<div class="container">
+  <h1>Gallery</h1>
+  <label
+    for="fileInput"
+    *ngIf="isLoggedIn"
+    class="btn btn-dark btn-round mb-4"
+    style="cursor: pointer"
+    >Choose Image</label
+  >
+  <input
+    type="file"
+    id="fileInput"
+    (change)="onFileSelected($event)"
+    style="display: none"
+  />
+  <div class="gallery">
+    <div *ngFor="let image of pageSlice">
+      <img [src]="image" alt="Image" />
+    </div>
+  </div>
+</div>
+<mat-paginator
+  [length]="images.length"
+  [pageSize]="10"
+  [pageSizeOptions]="[10, 20, 50]"
+  (page)="onPageChange($event)"
+></mat-paginator>
+<footer><app-footer></app-footer></footer>

@@ -1,0 +1,40 @@
+.content {
+  min-height: calc(100vh - 40px);
+}
+
+.container {
+  padding-top: 80px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.container img {
+  width: 150px;
+  height: 150px;
+}
+
+.container .info {
+  margin-top: 15px;
+}
+
+.container .name {
+  font-weight: 600;
+}
+
+.actions {
+  margin: 30px 0 0 60px;
+}
+
+.actions .button {
+  margin-right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.actions .button:hover {
+  color: grey;
+}

@@ -21,6 +21,7 @@ export interface DialogData {
 })
 export class AddProjectDialogComponent implements OnInit {
   isEditing: boolean = false;
+  startDate: Date = new Date();
   formData: DialogData = {
     id: undefined,
     title: '',

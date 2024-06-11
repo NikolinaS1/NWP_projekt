@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Location, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthorizationService } from '../../authorization.service';
@@ -11,6 +11,8 @@ import { AuthorizationService } from '../../authorization.service';
 export class NavbarComponent implements OnInit {
   private toggleButton: any;
   private sidebarVisible: boolean;
+  isScrolled: boolean = false;
+  currentRoute: string = '';
 
   constructor(
     public location: Location,
@@ -25,9 +27,15 @@ export class NavbarComponent implements OnInit {
     return this.authorizationService.isLoggedIn();
   }
 
-  ngOnInit() {
-    const navbar: HTMLElement = this.element.nativeElement;
-    this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
+  ngOnInit() {}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.scrollY > 50) {
+      this.isScrolled = true;
+    } else {
+      this.isScrolled = false;
+    }
   }
 
   redirectToLoginPage(): void {
