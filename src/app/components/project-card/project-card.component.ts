@@ -79,9 +79,6 @@ export class ProjectCardComponent implements OnInit {
   }
 
   handleProjectClick(project: Project): void {
-    if (!this.isLoggedIn) {
-      return;
-    }
     this.showDetails(project);
   }
 
