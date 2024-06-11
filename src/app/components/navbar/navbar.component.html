@@ -1,8 +1,14 @@
 <nav
   class="navbar navbar-expand-lg navbar-sm"
   [ngClass]="{
-    'navbar-transparent': !isScrolled,
-    'navbar-colored': isScrolled
+    'navbar-transparent':
+      !isScrolled &&
+      (currentRoute === '/' ||
+        currentRoute === '/profile' ||
+        currentRoute === '/archive' ||
+        currentRoute === '/account'),
+    'navbar-colored':
+      (isScrolled && currentRoute === '/') || currentRoute !== '/'
   }"
 >
   <div class="container align-items-center">

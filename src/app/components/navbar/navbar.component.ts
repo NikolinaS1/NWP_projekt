@@ -21,6 +21,9 @@ export class NavbarComponent implements OnInit {
     private readonly authorizationService: AuthorizationService
   ) {
     this.sidebarVisible = false;
+    this.router.events.subscribe((val) => {
+      this.currentRoute = this.router.url;
+    });
   }
 
   get isLoggedIn(): boolean {
