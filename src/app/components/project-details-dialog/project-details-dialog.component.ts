@@ -1,30 +1,46 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { Project } from '../../project.interface';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../project.service';
 import { AuthorizationService } from '../../authorization.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectCardComponent } from '../project-card/project-card.component';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-project-details-dialog',
   templateUrl: './project-details-dialog.component.html',
   styleUrls: ['./project-details-dialog.component.css'],
 })
-export class ProjectDetailsDialogComponent {
+export class ProjectDetailsDialogComponent implements OnInit {
   @ViewChild(ProjectCardComponent) projectCardComponent!: ProjectCardComponent;
   isLoggedIn: boolean = false;
   isAssigned: boolean = false;
+  public hasAdminRole: boolean = false;
+  public isArchivePage: boolean = false;
+  public isArchive: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ProjectDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { project: Project },
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      project: Project;
+      isArchivePage: boolean;
+      isArchive: boolean;
+    },
     private projectService: ProjectService,
     private snackBar: MatSnackBar,
-    private authorizationService: AuthorizationService
+    private authorizationService: AuthorizationService,
+    private readonly keycloak: KeycloakService
   ) {
     this.isLoggedIn = this.authorizationService.isLoggedIn();
+    this.isArchivePage = data.isArchivePage;
+    this.isArchive = data.isArchive;
     this.checkUserAssignment();
+  }
+
+  ngOnInit(): void {
+    this.hasAdminRole = this.keycloak.getUserRoles().includes('admin');
   }
 
   async checkUserAssignment(): Promise<void> {

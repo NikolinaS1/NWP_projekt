@@ -18,24 +18,26 @@
     <p>Description: {{ data.project.description }}</p>
     <p>Skills required: {{ data.project.skills }}</p>
   </div>
-  <div id="button" *ngIf="isLoggedIn" class="button-container">
+  <div
+    id="button"
+    *ngIf="isLoggedIn && !isArchivePage && !isArchive"
+    class="button-container"
+  >
     <button
-      *ngIf="!isAssigned && data.project.volunteers !== 0"
+      *ngIf="!isAssigned && data.project.volunteers !== 0 && !hasAdminRole"
       type="button"
       class="btn btn-success btn-round mb-4"
       (click)="assignUserToProject()"
     >
       Assign
     </button>
-    <ng-container *ngIf="isAssigned">
-      <button
-        *ngIf="data.project.volunteers === 0 || data.project.volunteers !== 0"
-        type="button"
-        class="btn btn-danger btn-round mb-4"
-        (click)="unassignUserFromProject()"
-      >
-        Unassign
-      </button>
-    </ng-container>
+    <button
+      *ngIf="isAssigned && !hasAdminRole"
+      type="button"
+      class="btn btn-danger btn-round mb-4"
+      (click)="unassignUserFromProject()"
+    >
+      Unassign
+    </button>
   </div>
 </div>

@@ -13,14 +13,14 @@
     </p>
     <p>
       <ng-container *ngIf="project.volunteers === 0; else volunteersCount">
-        <span>No</span> volunteers needed
+        <span>No volunteers needed</span>
       </ng-container>
       <ng-template #volunteersCount>
         Volunteers needed: <span>{{ project.volunteers }}</span>
       </ng-template>
     </p>
     <div class="actions">
-      <div class="edit" *ngIf="isLoggedIn">
+      <div class="edit" *ngIf="isLoggedIn && hasAdminRole">
         <button
           type="button"
           class="btn btn-success btn-round mb-4"
@@ -29,7 +29,7 @@
           Edit
         </button>
       </div>
-      <div class="delete" *ngIf="isLoggedIn">
+      <div class="delete" *ngIf="isLoggedIn && hasAdminRole">
         <button
           type="button"
           class="btn btn-danger btn-round mb-4"

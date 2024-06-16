@@ -14,6 +14,8 @@ export class AccountComponent implements OnInit {
   showActive: boolean = false;
   showArchive: boolean = false;
   activeButton: string = 'activeProjects';
+  public isArchivePage: boolean = false;
+  public isArchive: boolean = false;
 
   constructor(private authService: AuthorizationService) {}
 

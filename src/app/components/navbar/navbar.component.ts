@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Location, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthorizationService } from '../../authorization.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -13,12 +14,14 @@ export class NavbarComponent implements OnInit {
   private sidebarVisible: boolean;
   isScrolled: boolean = false;
   currentRoute: string = '';
+  public hasAdminRole: boolean = false;
 
   constructor(
     public location: Location,
     private element: ElementRef,
     private router: Router,
-    private readonly authorizationService: AuthorizationService
+    private readonly authorizationService: AuthorizationService,
+    private readonly keycloak: KeycloakService
   ) {
     this.sidebarVisible = false;
     this.router.events.subscribe((val) => {
@@ -30,7 +33,9 @@ export class NavbarComponent implements OnInit {
     return this.authorizationService.isLoggedIn();
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.hasAdminRole = this.keycloak.getUserRoles().includes('admin');
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

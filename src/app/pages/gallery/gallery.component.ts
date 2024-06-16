@@ -4,6 +4,7 @@ import { GalleryService } from '../../gallery.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-gallery',
@@ -14,6 +15,7 @@ export class GalleryComponent implements OnInit {
   imageNames: string[] = [];
   images: any[] = [];
   pageSlice: any[] = [];
+  public hasAdminRole: boolean = false;
 
   get isLoggedIn(): boolean {
     return this.authorizationService.isLoggedIn();
@@ -23,11 +25,13 @@ export class GalleryComponent implements OnInit {
     private readonly authorizationService: AuthorizationService,
     private galleryService: GalleryService,
     private sanitizer: DomSanitizer,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private readonly keycloak: KeycloakService
   ) {}
 
   ngOnInit(): void {
     this.loadImages();
+    this.hasAdminRole = this.keycloak.getUserRoles().includes('admin');
   }
 
   onFileSelected(event: any): void {

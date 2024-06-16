@@ -8,6 +8,7 @@ import { AuthorizationService } from '../../authorization.service';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { PageEvent } from '@angular/material/paginator';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-project-card',
@@ -21,6 +22,7 @@ export class ProjectCardComponent implements OnInit {
   @Input() isActive: boolean = false;
   projects: Project[] = [];
   pageSlice: Project[] = [];
+  public hasAdminRole: boolean = false;
 
   get isLoggedIn(): boolean {
     return this.authorizationService.isLoggedIn();
@@ -30,11 +32,13 @@ export class ProjectCardComponent implements OnInit {
     private projectService: ProjectService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private authorizationService: AuthorizationService
+    private authorizationService: AuthorizationService,
+    private readonly keycloak: KeycloakService
   ) {}
 
   ngOnInit(): void {
     this.fetchProjects();
+    this.hasAdminRole = this.keycloak.getUserRoles().includes('admin');
   }
 
   fetchProjects() {
@@ -82,7 +86,11 @@ export class ProjectCardComponent implements OnInit {
 
   showDetails(project: Project): void {
     const dialogRef = this.dialog.open(ProjectDetailsDialogComponent, {
-      data: { project: project },
+      data: {
+        project: project,
+        isArchivePage: this.isArchivePage,
+        isArchive: this.isArchive,
+      },
       width: '660px',
       height: 'auto',
     });
