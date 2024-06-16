@@ -32,9 +32,22 @@ export class GalleryComponent implements OnInit {
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
     if (file) {
+      if (!validImageTypes.includes(file.type)) {
+        this.snackBar.open(
+          'Invalid file format. Please upload an image file (JPEG, PNG, GIF).',
+          'OK',
+          {
+            duration: 5000,
+          }
+        );
+        return;
+      }
+
       this.galleryService.uploadImage(file).subscribe(() => {
-        this.snackBar.open('Image uploaded successfully..', 'OK', {
+        this.snackBar.open('Image uploaded successfully.', 'OK', {
           duration: 5000,
         });
         this.loadImages();
