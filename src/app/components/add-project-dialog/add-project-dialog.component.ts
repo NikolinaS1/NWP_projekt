@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../project.service';
 import { Project } from '../../project.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   id?: number;
@@ -36,6 +37,7 @@ export class AddProjectDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddProjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private snackBar: MatSnackBar,
     private projectService: ProjectService
   ) {}
 
@@ -62,6 +64,9 @@ export class AddProjectDialogComponent implements OnInit {
       });
     } else {
       this.projectService.save(projectData).subscribe(() => {
+        this.snackBar.open('Project added successfully', 'OK', {
+          duration: 5000,
+        });
         this.dialogRef.close(projectData);
       });
     }

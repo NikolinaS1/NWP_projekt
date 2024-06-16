@@ -119,8 +119,12 @@ public class ProjectController {
 
         userProjectAssignmentRepository.persist(assignment);
 
+        project.setVolunteers(project.getVolunteers() - 1);
+        projectRepository.persist(project);
+
         return Response.ok().build();
     }
+
 
     @GET
     @Path("/user/{userId}")
@@ -129,5 +133,31 @@ public class ProjectController {
     public Response getUserProjects(@PathParam("userId") String userId) {
         List<Project> projects = projectService.findProjectsByUserId(userId);
         return Response.ok(projects).build();
+    }
+
+    @DELETE
+    @Path("/{projectId}/unassign/{userId}")
+    @Authenticated
+    @Transactional
+    public Response unassignUserFromProject(@PathParam("projectId") Long projectId, @PathParam("userId") String userId) {
+        ProjectEntity project = projectRepository.findById(projectId);
+
+        if (project == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        UserProjectAssignmentId id = new UserProjectAssignmentId(userId, projectId);
+        UserProjectAssignment assignment = userProjectAssignmentRepository.findById(id);
+
+        if (assignment == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        userProjectAssignmentRepository.delete(assignment);
+
+        project.setVolunteers(project.getVolunteers() + 1);
+        projectRepository.persist(project);
+
+        return Response.ok().build();
     }
 }

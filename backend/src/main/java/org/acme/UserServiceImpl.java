@@ -28,4 +28,14 @@ public class UserServiceImpl implements UserService {
                 .map(ProjectEntity::toDomain) 
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void unassignUserFromProject(String userId, Long projectId) {
+        UserProjectAssignmentId id = new UserProjectAssignmentId(userId, projectId);
+        UserProjectAssignment assignment = userProjectAssignmentRepository.findById(id);
+
+        if (assignment != null) {
+            userProjectAssignmentRepository.delete(assignment);
+        }
+    }
 }

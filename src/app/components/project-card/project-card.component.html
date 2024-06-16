@@ -12,7 +12,12 @@
       {{ project.endDate | date : "yyyy-MM-dd" }}
     </p>
     <p>
-      Volunteers needed: <span>{{ project.volunteers }}</span>
+      <ng-container *ngIf="project.volunteers === 0; else volunteersCount">
+        <span>No</span> volunteers needed
+      </ng-container>
+      <ng-template #volunteersCount>
+        Volunteers needed: <span>{{ project.volunteers }}</span>
+      </ng-template>
     </p>
     <div class="actions">
       <div class="edit" *ngIf="isLoggedIn">

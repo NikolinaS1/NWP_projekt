@@ -3,6 +3,7 @@ import { Project } from '../../project.interface';
 import { ProjectService } from '../../project.service';
 import { ProjectDetailsDialogComponent } from '../project-details-dialog/project-details-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthorizationService } from '../../authorization.service';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -28,6 +29,7 @@ export class ProjectCardComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private authorizationService: AuthorizationService
   ) {}
 
@@ -84,6 +86,12 @@ export class ProjectCardComponent implements OnInit {
       width: '660px',
       height: 'auto',
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
+        this.fetchProjects();
+      }
+    });
   }
 
   deleteProject(id: number): void {
@@ -98,6 +106,9 @@ export class ProjectCardComponent implements OnInit {
       if (result) {
         this.projectService.delete(id).subscribe(() => {
           this.projects = this.projects.filter((project) => project.id !== id);
+          this.snackBar.open('Project deleted successfully', 'OK', {
+            duration: 5000,
+          });
           this.fetchProjects();
         });
       }
@@ -122,6 +133,9 @@ export class ProjectCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.projectService.update(project.id, result).subscribe(() => {
+          this.snackBar.open('Project updated successfully', 'OK', {
+            duration: 5000,
+          });
           this.fetchProjects();
         });
       }

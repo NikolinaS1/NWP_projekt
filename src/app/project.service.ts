@@ -73,4 +73,14 @@ export class ProjectService {
       )
     );
   }
+
+  unassignUserFromProject(projectId: number, userId: string): Observable<any> {
+    return this.getHeaders().pipe(
+      switchMap((headers) =>
+        this.http.delete(`${this.projectUrl}/${projectId}/unassign/${userId}`, {
+          headers,
+        })
+      )
+    );
+  }
 }
