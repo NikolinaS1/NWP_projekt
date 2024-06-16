@@ -8,4 +8,5 @@ public interface ProjectService {
     Project findById(Long id);
     boolean delete(Long id);
     void update(Project project);
+    List<Project> findProjectsByUserId(String userId);
 }

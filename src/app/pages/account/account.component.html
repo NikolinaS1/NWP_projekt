@@ -10,8 +10,30 @@
     </div>
   </div>
   <div class="actions">
-    <button class="button">My active projects</button>
-    <button class="button">My archive</button>
+    <button
+      class="button"
+      [ngClass]="{ active: activeButton === 'activeProjects' }"
+      (click)="showActiveProjects()"
+    >
+      My active projects
+    </button>
+    <button
+      class="button"
+      [ngClass]="{ active: activeButton === 'archiveProjects' }"
+      (click)="showArchiveProjects()"
+    >
+      My archive
+    </button>
   </div>
+  <app-project-card
+    *ngIf="showProfileProjects && showActive"
+    [isProfilePage]="true"
+    [isActive]="true"
+  ></app-project-card>
+  <app-project-card
+    *ngIf="showProfileProjects && showArchive"
+    [isProfilePage]="true"
+    [isArchive]="true"
+  ></app-project-card>
 </div>
 <footer><app-footer></app-footer></footer>

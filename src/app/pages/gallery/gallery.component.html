@@ -15,11 +15,17 @@
     style="display: none"
   />
   <div class="gallery">
-    <div *ngFor="let image of pageSlice">
+    <div *ngFor="let image of pageSlice" (click)="openModal(image)">
       <img [src]="image" alt="Image" />
     </div>
   </div>
 </div>
+
+<div id="myModal" class="modal">
+  <span class="close" (click)="closeModal()">&times;</span>
+  <img class="modal-content" id="img01" />
+</div>
+
 <mat-paginator
   [length]="images.length"
   [pageSize]="10"

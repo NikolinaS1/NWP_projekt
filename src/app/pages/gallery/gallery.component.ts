@@ -74,4 +74,20 @@ export class GalleryComponent implements OnInit {
     const endIndex = Math.min(startIndex + pageSize, this.images.length);
     this.pageSlice = this.images.slice(startIndex, endIndex);
   }
+
+  openModal(imageUrl: any): void {
+    const modal = document.getElementById('myModal') as HTMLElement;
+    const modalImg = document.getElementById('img01') as HTMLImageElement;
+    modal.style.display = 'block';
+    modalImg.src = imageUrl.changingThisBreaksApplicationSecurity;
+
+    modal.onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('myModal') as HTMLElement;
+    modal.style.display = 'none';
+  }
 }

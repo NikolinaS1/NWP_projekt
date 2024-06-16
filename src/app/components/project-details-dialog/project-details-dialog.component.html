@@ -14,6 +14,12 @@
     <p>Skills required: {{ data.project.skills }}</p>
   </div>
   <div id="button" *ngIf="isLoggedIn" class="button-container">
-    <button type="button" class="btn btn-success btn-round mb-4">Assign</button>
+    <button
+      type="button"
+      class="btn btn-success btn-round mb-4"
+      (click)="assignUserToProject()"
+    >
+      Assign
+    </button>
   </div>
 </div>

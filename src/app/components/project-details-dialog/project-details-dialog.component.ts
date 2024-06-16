@@ -29,4 +29,26 @@ export class ProjectDetailsDialogComponent {
       console.log(this.projectDetails);
     });
   }
+
+  async assignUserToProject(): Promise<void> {
+    if (this.isLoggedIn) {
+      const userId = this.authorizationService.getUserId();
+      (
+        await this.projectService.assignUserToProject(
+          this.data.project.id,
+          userId
+        )
+      ).subscribe(
+        () => {
+          console.log('User assigned successfully');
+          this.dialogRef.close();
+        },
+        (error) => {
+          console.error('Error assigning user to project', error);
+        }
+      );
+    } else {
+      console.error('User is not logged in');
+    }
+  }
 }

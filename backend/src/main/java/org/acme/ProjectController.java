@@ -4,8 +4,13 @@ import org.acme.ProjectResponse;
 import org.acme.Project;
 import org.acme.ProjectService;
 import org.acme.ProjectRequest;
+import org.acme.UserProjectAssignment;
+import org.acme.UserProjectAssignmentId;
+import org.acme.ProjectRepository;
+import org.acme.UserProjectAssignmentRepository;
 import io.quarkus.security.Authenticated;
 
+import jakarta.transaction.Transactional;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -23,6 +28,12 @@ import java.util.Date;
 public class ProjectController {
     @Inject
     ProjectService projectService;
+
+    @Inject
+    ProjectRepository projectRepository;
+
+    @Inject
+    UserProjectAssignmentRepository userProjectAssignmentRepository;
 
     @POST()
     @Authenticated
@@ -82,5 +93,41 @@ public class ProjectController {
         projectService.update(project);
 
         return Response.ok(project).build();
+    }
+
+    @PUT
+    @Path("/{projectId}/assign/{userId}")
+    @Authenticated
+    @Transactional
+    public Response assignUserToProject(@PathParam("projectId") Long projectId, @PathParam("userId") String userId) {
+        ProjectEntity project = projectRepository.findById(projectId);
+
+        if (project == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        UserProjectAssignmentId id = new UserProjectAssignmentId(userId, projectId);
+
+        UserProjectAssignment assignment = userProjectAssignmentRepository.findById(id);
+        if (assignment != null) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
+        assignment = new UserProjectAssignment();
+        assignment.setId(id);
+        assignment.setProject(project);
+
+        userProjectAssignmentRepository.persist(assignment);
+
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/user/{userId}")
+    @Authenticated
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserProjects(@PathParam("userId") String userId) {
+        List<Project> projects = projectService.findProjectsByUserId(userId);
+        return Response.ok(projects).build();
     }
 }

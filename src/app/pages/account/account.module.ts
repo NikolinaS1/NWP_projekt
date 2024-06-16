@@ -4,6 +4,7 @@ import { AccountComponent } from './account.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarModule } from '../../components/navbar/navbar.module';
 import { FooterModule } from '../../components/footer/footer.module';
+import { ProjectCardModule } from '../../components/project-card/project-card.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     NavbarModule,
     RouterModule.forChild(routes),
     FooterModule,
+    ProjectCardModule,
   ],
 })
 export class AccountModule {}

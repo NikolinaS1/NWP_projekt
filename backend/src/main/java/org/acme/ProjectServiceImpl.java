@@ -19,13 +19,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Inject
     ProjectRepository projectRepository;
 
+    @Inject
+    UserService userService;
+
     @Override
-public Project create(Project project) {
-    ProjectEntity entity = new ProjectEntity(project.getTitle(), project.getLocation(), project.getStartDate(), project.getEndDate(), project.getVolunteers(), project.getDescription(), project.getSkills());
-    projectRepository.persist(entity);
-    projectRepository.flush(); 
-    return entity.toDomain();
-}
+    public Project create(Project project) {
+        ProjectEntity entity = new ProjectEntity(project.getTitle(), project.getLocation(), project.getStartDate(), project.getEndDate(), project.getVolunteers(), project.getDescription(), project.getSkills());
+        projectRepository.persist(entity);
+        projectRepository.flush(); 
+        return entity.toDomain();
+    }
 
 
     @Override
@@ -58,6 +61,10 @@ public Project create(Project project) {
             projectRepository.persist(entity);
             projectRepository.flush(); 
         }
-}
+    }
 
+    @Override
+    public List<Project> findProjectsByUserId(String userId) {
+        return userService.findProjectsByUserId(userId);
+    }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, from } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Project } from './project.interface';
+import { AuthorizationService } from './authorization.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,10 @@ import { Project } from './project.interface';
 export class ProjectService {
   private projectUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthorizationService
+  ) {
     this.projectUrl = 'http://localhost:8085/projects';
   }
 
@@ -31,5 +36,41 @@ export class ProjectService {
 
   public delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.projectUrl}/${id}`);
+  }
+
+  private getHeaders(): Observable<HttpHeaders> {
+    return from(this.authService.getToken()).pipe(
+      switchMap(
+        (token) =>
+          new Observable<HttpHeaders>((observer) => {
+            observer.next(
+              new HttpHeaders({
+                Authorization: `Bearer ${token}`,
+              })
+            );
+            observer.complete();
+          })
+      )
+    );
+  }
+
+  assignUserToProject(projectId: number, userId: string): Observable<any> {
+    return this.getHeaders().pipe(
+      switchMap((headers) =>
+        this.http.put(
+          `${this.projectUrl}/${projectId}/assign/${userId}`,
+          {},
+          { headers }
+        )
+      )
+    );
+  }
+
+  getUserProjects(userId: string): Observable<any> {
+    return this.getHeaders().pipe(
+      switchMap((headers) =>
+        this.http.get(`${this.projectUrl}/user/${userId}`, { headers })
+      )
+    );
   }
 }

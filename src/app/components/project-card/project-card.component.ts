@@ -15,6 +15,9 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ProjectCardComponent implements OnInit {
   @Input() isArchivePage: boolean = false;
+  @Input() isProfilePage: boolean = false;
+  @Input() isArchive: boolean = false;
+  @Input() isActive: boolean = false;
   projects: Project[] = [];
   pageSlice: Project[] = [];
 
@@ -33,23 +36,46 @@ export class ProjectCardComponent implements OnInit {
   }
 
   fetchProjects() {
-    this.projectService.findAll().subscribe((data) => {
-      const currentDate = new Date();
-      this.projects = data
-        .map((project) => ({
-          ...project,
-          startDate: new Date(project.startDate),
-          endDate: new Date(project.endDate),
-        }))
-        .filter((project) => {
-          if (this.isArchivePage) {
-            return project.endDate < currentDate;
-          } else {
-            return project.endDate >= currentDate;
-          }
+    if (this.isProfilePage) {
+      this.projectService
+        .getUserProjects(this.authorizationService.getUserId())
+        .subscribe((projects) => {
+          const currentDate = new Date();
+          this.projects = projects
+            .map((project: any) => ({
+              ...project,
+              startDate: new Date(project.startDate),
+              endDate: new Date(project.endDate),
+            }))
+            .filter((project: any) => {
+              if (this.isArchive) {
+                return project.endDate < currentDate;
+              } else if (this.isActive) {
+                return project.endDate >= currentDate;
+              }
+              return false;
+            });
+          this.pageSlice = this.projects.slice(0, 6);
         });
-      this.pageSlice = this.projects.slice(0, 6);
-    });
+    } else {
+      this.projectService.findAll().subscribe((data) => {
+        const currentDate = new Date();
+        this.projects = data
+          .map((project) => ({
+            ...project,
+            startDate: new Date(project.startDate),
+            endDate: new Date(project.endDate),
+          }))
+          .filter((project) => {
+            if (this.isArchivePage) {
+              return project.endDate < currentDate;
+            } else {
+              return project.endDate >= currentDate;
+            }
+          });
+        this.pageSlice = this.projects.slice(0, 6);
+      });
+    }
   }
 
   showDetails(project: Project): void {

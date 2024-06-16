@@ -26,8 +26,17 @@ export class AuthorizationService {
     return idToken?.['family_name'] ?? '';
   }
 
+  getToken(): Promise<string> {
+    return this.keycloakService.getToken();
+  }
+
   isLoggedIn(): boolean {
     return this.keycloakService.isLoggedIn();
+  }
+
+  getUserId(): string {
+    const idToken = this.keycloakService.getKeycloakInstance()?.idTokenParsed;
+    return idToken?.['sub'] ?? '';
   }
 
   logout(): void {
